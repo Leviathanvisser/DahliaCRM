@@ -1,4 +1,4 @@
-/* Reset and base styles */
+/* Reset & base */
 * {
   margin: 0;
   padding: 0;
@@ -6,42 +6,49 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Baloo 2', cursive;
   background: linear-gradient(to right, #ffe6f0, #fff0f8);
   color: #4a004e;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   padding: 20px;
 }
 
-/* Container for page content */
+/* Main container */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  max-width: 800px;
   background: #ffffffcc;
   backdrop-filter: blur(10px);
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
-/* Header */
+/* Header with white banner */
 header {
-  text-align: center;
-  margin-bottom: 40px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(255, 182, 193, 0.2);
+  margin-bottom: 30px;
 }
 
 header h1 {
   font-size: 2.5rem;
   color: #d63384;
-  text-shadow: 1px 1px 0 #fff;
 }
 
-/* Navigation */
+/* Nav bar */
 nav {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
   margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }
 
 nav a {
@@ -59,31 +66,72 @@ nav a:hover {
   color: #fff;
 }
 
-/* Example section styling */
-section {
-  margin-top: 30px;
-  padding: 20px;
-  border-radius: 12px;
+/* Main content area */
+main {
   background-color: #fff8fc;
+  padding: 25px;
+  border-radius: 16px;
   box-shadow: 0 5px 15px rgba(255, 192, 203, 0.3);
 }
 
-/* Footer */
-footer {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 0.9rem;
-  color: #999;
+main h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #d63384;
 }
 
-/* Responsive */
+main p {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.1rem;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+strong {
+  color: #b30069;
+}
+
+/* Bookings table */
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.bookings-table th,
+.bookings-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.bookings-table th {
+  background-color: #f4e1f4;
+}
+
+.bookings-table td {
+  background-color: #f9e3f9;
+}
+
+/* Mobile adjustments */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
-    align-items: center;
   }
 
   header h1 {
     font-size: 2rem;
+  }
+
+  main {
+    padding: 20px;
   }
 }
