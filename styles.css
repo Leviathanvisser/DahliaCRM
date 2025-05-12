@@ -1,0 +1,17 @@
+body {
+  background: linear-gradient(to right, #fff, #fff6fa);
+  font-family: 'Georgia', serif;
+  color: #f4bcf5;
+  padding: 20px;
+  margin: 0;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #f
