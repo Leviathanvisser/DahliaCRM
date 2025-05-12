@@ -42,3 +42,53 @@ if (incomeForm) {
     incomeForm.reset();
   });
 }
+
+// Render Bookings
+document.addEventListener("DOMContentLoaded", function () {
+  const bookingsList = document.getElementById('bookings-list');
+  function renderBookings() {
+    bookingsList.innerHTML = ''; // Clear any existing bookings
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    bookings.forEach(booking => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${booking.clientName}</td>
+        <td>${booking.bookingDate}</td>
+        <td>${booking.bookingTime}</td>
+        <td>${booking.details}</td>
+      `;
+      bookingsList.appendChild(tr);
+    });
+  }
+  renderBookings();
+});
+
+// Render Clients
+document.addEventListener("DOMContentLoaded", function () {
+  const clientsList = document.getElementById('clients-list');
+  function renderClients() {
+    clientsList.innerHTML = ''; // Clear previous clients
+    const clients = JSON.parse(localStorage.getItem('clients')) || [];
+    clients.forEach(client => {
+      const li = document.createElement('li');
+      li.textContent = client.clientName;
+      clientsList.appendChild(li);
+    });
+  }
+  renderClients();
+});
+
+// Render Income
+document.addEventListener("DOMContentLoaded", function () {
+  const incomeList = document.getElementById('income-list');
+  function renderIncome() {
+    incomeList.innerHTML = ''; // Clear previous income entries
+    const income = JSON.parse(localStorage.getItem('income')) || [];
+    income.forEach(entry => {
+      const li = document.createElement('li');
+      li.textContent = `${entry.amount} on ${entry.date} - ${entry.source}`;
+      incomeList.appendChild(li);
+    });
+  }
+  renderIncome();
+});
