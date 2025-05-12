@@ -1,94 +1,67 @@
 // Booking form logic
 const bookingForm = document.getElementById('bookingForm');
 if (bookingForm) {
+  console.log('Booking form found');
   bookingForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const data = new FormData(bookingForm);
-    const entry = Object.fromEntries(data);
+    e.preventDefault(); // Prevent default form submission
+
+    // Debugging: Log form submission
+    console.log('Form submitted');
+    
+    const data = new FormData(bookingForm); // Collect form data
+    const entry = Object.fromEntries(data); // Convert FormData to object
+
+    // Debug: log the form data
+    console.log('Booking Form Data:', entry);
+
+    // Check if the entry has required fields (clientName, bookingDate, etc.)
+    if (!entry.clientName || !entry.bookingDate || !entry.bookingTime) {
+      console.log('Error: Missing required booking fields.');
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    // Get existing bookings or initialize an empty array
     let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-    bookings.push(entry);
-    localStorage.setItem('bookings', JSON.stringify(bookings));
+    console.log('Existing Bookings:', bookings); // Log existing bookings
+
+    bookings.push(entry); // Add new booking to the array
+    console.log('Updated Bookings:', bookings); // Log updated bookings array
+
+    localStorage.setItem('bookings', JSON.stringify(bookings)); // Save the updated array to localStorage
+
     alert('Booking saved!');
-    bookingForm.reset();
+    bookingForm.reset(); // Reset form
+
+    renderBookings(); // Re-render the bookings list
   });
 }
 
-// Client form logic
-const clientForm = document.getElementById('clientForm');
-if (clientForm) {
-  clientForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const data = new FormData(clientForm);
-    const entry = Object.fromEntries(data);
-    let clients = JSON.parse(localStorage.getItem('clients')) || [];
-    clients.push(entry);
-    localStorage.setItem('clients', JSON.stringify(clients));
-    alert('Client saved!');
-    clientForm.reset();
-  });
-}
-
-// Income form logic
-const incomeForm = document.getElementById('incomeForm');
-if (incomeForm) {
-  incomeForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const data = new FormData(incomeForm);
-    const entry = Object.fromEntries(data);
-    let income = JSON.parse(localStorage.getItem('income')) || [];
-    income.push(entry);
-    localStorage.setItem('income', JSON.stringify(income));
-    alert('Income saved!');
-    incomeForm.reset();
-  });
-}
-
-// Render Bookings
+// Render Bookings (on page load)
 document.addEventListener("DOMContentLoaded", function () {
+  renderBookings(); // Render bookings when the page is loaded
+});
+
+function renderBookings() {
   const bookingsList = document.getElementById('bookings-list');
-  function renderBookings() {
-    bookingsList.innerHTML = ''; // Clear any existing bookings
-    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-    bookings.forEach(booking => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${booking.clientName}</td>
-        <td>${booking.bookingDate}</td>
-        <td>${booking.bookingTime}</td>
-        <td>${booking.details}</td>
-      `;
-      bookingsList.appendChild(tr);
-    });
+  if (!bookingsList) {
+    console.log('Error: bookings-list element not found!');
+    return;
   }
-  renderBookings();
-});
 
-// Render Clients
-document.addEventListener("DOMContentLoaded", function () {
-  const clientsList = document.getElementById('clients-list');
-  function renderClients() {
-    clientsList.innerHTML = ''; // Clear previous clients
-    const clients = JSON.parse(localStorage.getItem('clients')) || [];
-    clients.forEach(client => {
-      const li = document.createElement('li');
-      li.textContent = client.clientName;
-      clientsList.appendChild(li);
-    });
-  }
-  renderClients();
-});
+  bookingsList.innerHTML = ''; // Clear any existing bookings
 
-// Render Income
-document.addEventListener("DOMContentLoaded", function () {
-  const incomeList = document.getElementById('income-list');
-  function renderIncome() {
-    incomeList.innerHTML = ''; // Clear previous income entries
-    const income = JSON.parse(localStorage.getItem('income')) || [];
-    income.forEach(entry => {
-      const li = document.createElement('li');
-      li.textContent = `${entry.amount} on ${entry.date} - ${entry.source}`;
-      incomeList.appendChild(li);
-    });
-  }
-  renderIncome();
-});
+  const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+  console.log('Stored Bookings:', bookings); // Log the stored bookings
+
+  bookings.forEach(booking => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${booking.clientName}</td>
+      <td>${booking.bookingDate}</td>
+      <td>${booking.bookingTime}</td>
+      <td>${booking.details}</td>
+    `;
+    bookingsList.appendChild(tr); // Append the new booking to the table
+  });
+}
