@@ -1,140 +1,41 @@
-// Booking form logic
-const bookingForm = document.getElementById('bookingForm');
-if (bookingForm) {
-  bookingForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const data = new FormData(bookingForm);
-    const entry = Object.fromEntries(data);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bookings | Butterfly CRM 🌸</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>🦋 Butterfly CRM - Bookings</h1>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="clients.html">Clients</a>
+      <a href="income.html">Income</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+  </header>
 
-    // Debug: log the form data
-    console.log('New Booking:', entry);
+  <main>
+    <h2>Add a New Booking</h2>
+    <form id="bookingForm">
+      <label for="clientName">Client Name:</label>
+      <input type="text" id="clientName" name="clientName" required><br>
 
-    // Get existing bookings or initialize an empty array
-    let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-    bookings.push(entry);
+      <label for="bookingDate">Booking Date:</label>
+      <input type="date" id="bookingDate" name="bookingDate" required><br>
 
-    // Save updated bookings to localStorage
-    localStorage.setItem('bookings', JSON.stringify(bookings));
+      <label for="bookingTime">Booking Time:</label>
+      <input type="time" id="bookingTime" name="bookingTime" required><br>
 
-    alert('Booking saved!');
+      <label for="details">Details:</label>
+      <textarea id="details" name="details"></textarea><br>
 
-    // Reset the form
-    bookingForm.reset();
+      <button type="submit">Submit</button>
+    </form>
+  </main>
 
-    // Re-render bookings list after new booking
-    renderBookings();
-  });
-}
-
-// Render Bookings
-document.addEventListener("DOMContentLoaded", function () {
-  renderBookings();
-});
-
-function renderBookings() {
-  const bookingsList = document.getElementById('bookings-list');
-  bookingsList.innerHTML = ''; // Clear any existing bookings
-
-  const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-
-  // Debug: log stored bookings
-  console.log('Stored Bookings:', bookings);
-
-  // Render each booking
-  bookings.forEach(booking => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${booking.clientName}</td>
-      <td>${booking.bookingDate}</td>
-      <td>${booking.bookingTime}</td>
-      <td>${booking.details}</td>
-    `;
-    bookingsList.appendChild(tr);
-  });
-}
-
-// Client form logic
-const clientForm = document.getElementById('clientForm');
-if (clientForm) {
-  clientForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const data = new FormData(clientForm);
-    const entry = Object.fromEntries(data);
-
-    // Debug: log the new client
-    console.log('New Client:', entry);
-
-    let clients = JSON.parse(localStorage.getItem('clients')) || [];
-    clients.push(entry);
-    localStorage.setItem('clients', JSON.stringify(clients));
-
-    alert('Client saved!');
-    clientForm.reset();
-
-    renderClients();
-  });
-}
-
-// Render Clients
-document.addEventListener("DOMContentLoaded", function () {
-  renderClients();
-});
-
-function renderClients() {
-  const clientsList = document.getElementById('clients-list');
-  clientsList.innerHTML = ''; // Clear any existing clients
-
-  const clients = JSON.parse(localStorage.getItem('clients')) || [];
-
-  // Debug: log stored clients
-  console.log('Stored Clients:', clients);
-
-  clients.forEach(client => {
-    const li = document.createElement('li');
-    li.textContent = `${client.clientName} - ${client.clientPhone} - ${client.clientEmail}`;
-    clientsList.appendChild(li);
-  });
-}
-
-// Income form logic
-const incomeForm = document.getElementById('incomeForm');
-if (incomeForm) {
-  incomeForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const data = new FormData(incomeForm);
-    const entry = Object.fromEntries(data);
-
-    // Debug: log the new income entry
-    console.log('New Income:', entry);
-
-    let income = JSON.parse(localStorage.getItem('income')) || [];
-    income.push(entry);
-    localStorage.setItem('income', JSON.stringify(income));
-
-    alert('Income saved!');
-    incomeForm.reset();
-
-    renderIncome();
-  });
-}
-
-// Render Income
-document.addEventListener("DOMContentLoaded", function () {
-  renderIncome();
-});
-
-function renderIncome() {
-  const incomeList = document.getElementById('income-list');
-  incomeList.innerHTML = ''; // Clear any existing income entries
-
-  const income = JSON.parse(localStorage.getItem('income')) || [];
-
-  // Debug: log stored income
-  console.log('Stored Income:', income);
-
-  income.forEach(entry => {
-    const li = document.createElement('li');
-    li.textContent = `${entry.amount} on ${entry.date} - ${entry.source}`;
-    incomeList.appendChild(li);
-  });
-}
+  <script src="script.js"></script>
+</body>
+</html>
